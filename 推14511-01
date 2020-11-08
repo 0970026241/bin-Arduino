@@ -27,6 +27,7 @@ void deal(unsigned char value){
 void loop() {
 
   // 循环输出0-7，在138的输出端是Y0-Y7依次为0,138任何时刻只有1个脚为低电平。
+  // 這邊要推動 14511，原程式推 74138
   for(int i=0; i<10; i++) {
      deal(i);//
      Serial.println(i);
