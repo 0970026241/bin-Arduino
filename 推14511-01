@@ -1,0 +1,35 @@
+// 試用 Arduino 推動 bin 的 14511
+// 在一個七段跑數字
+
+
+
+int segCount = 4;
+
+int segPins[] = {2,3,4,5 };  // A,B,C,D
+
+void setup() {
+  Serial.begin(9600);
+  
+  // 循环设置，把对应的端口都设置成输出
+  for (int thisSeg=0; thisSeg < segCount; thisSeg++) {
+    pinMode(segPins[thisSeg], OUTPUT);
+  }
+}
+
+// 数据处理，把需要处理的byte数据写到对应的引脚端口。
+void deal(unsigned char value){
+ for(int i=0; i<4; i++)
+   digitalWrite(segPins[i], bitRead(value, i) );
+   //使用了bitWrite(val, bitnum)函数，非常简单
+}
+
+// 主循环
+void loop() {
+
+  // 循环输出0-7，在138的输出端是Y0-Y7依次为0,138任何时刻只有1个脚为低电平。
+  for(int i=0; i<10; i++) {
+     deal(i);//
+     Serial.println(i);
+   delay(300);//延时1秒
+   }
+}
